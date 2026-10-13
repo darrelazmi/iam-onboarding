@@ -106,3 +106,17 @@ services:
     volumes:
       - ./searxng-settings.yml:/etc/searxng/settings.yml:ro
     # Internal-only: n8n reaches it by service name. Never publish its port.
+
+  # New FastAPI Converter Service
+  pdf-converter:
+    build: ./pdf-converter
+    restart: always
+    # Port 8000 is exposed internally on the Docker network automatically
+
+  # New Prompt API Service
+  prompt-api:
+    build: ./prompt-api
+    restart: always
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    # Port 8000 is exposed internally on the Docker network automatically
